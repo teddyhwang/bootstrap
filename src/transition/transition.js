@@ -37,7 +37,7 @@ angular.module('ui.bootstrap.transition', [])
         element.css(trigger);
       }
       //If browser does not support transitions, instantly resolve
-      if ( !endEventName ) {
+      if ( !endEventName || endEventName == 'transitionend' ) {
         deferred.resolve(element);
       }
     });
