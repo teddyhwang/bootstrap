@@ -262,8 +262,8 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.position'])
   showButtonBar: true
 })
 
-.directive('datepickerPopup', ['$compile', '$parse', '$document', '$position', 'dateFilter', 'datepickerPopupConfig', 'datepickerConfig',
-function ($compile, $parse, $document, $position, dateFilter, datepickerPopupConfig, datepickerConfig) {
+.directive('datepickerPopup', ['$compile', '$parse', '$document', '$timeout', '$position', 'dateFilter', 'datepickerPopupConfig', 'datepickerConfig',
+function ($compile, $parse, $document, $timeout, $position, dateFilter, datepickerPopupConfig, datepickerConfig) {
   return {
     restrict: 'EA',
     require: 'ngModel',
@@ -385,6 +385,14 @@ function ($compile, $parse, $document, $position, dateFilter, datepickerPopupCon
         scope.$apply(function() {
           scope.date = ngModel.$modelValue;
         });
+      });
+
+      element.bind('keydown', function (event) {
+        if (event.keyCode === 9) {
+          scope.$apply(function() {
+            scope.isOpen = false;
+          });
+        }
       });
 
       // Outter change
